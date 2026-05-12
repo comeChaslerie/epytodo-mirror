@@ -5,8 +5,8 @@ services:
       - db
     restart: always
     build:
-      context: ./web_server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/Dockerfile
     image: web_server
     networks:
       - db
@@ -22,10 +22,10 @@ services:
     restart: always
     image: mysql
     volumes:
-      - db-data:/var/lib/mysql/data
+      - db-data:/var/lib/mysql
       - ./epytodo.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     networks:
       - db
 
