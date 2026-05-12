@@ -1,0 +1,39 @@
+services:
+
+  web_server:
+    depends_on:
+      - db
+    restart: always
+    build:
+      context: ./web_server
+      dockerfile: Dockerfile
+    image: web_server
+    networks:
+      - db
+    environment:
+      - PORT=${PORT}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SECRET=${SECRET}
+
+  db:
+    restart: always
+    image: mysql
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./epytodo.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - db
+
+volumes:
+  db-data:
+    name: db-data
+    driver: local
+
+networks:
+  db:
+    driver: bridge
