@@ -1,20 +1,21 @@
 CREATE TABLE IF NOT EXISTS user
 (
-    id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY,
-    email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    name TEXT NOT NULL,
-    firstname TEXT NOT NULL,
-    created_at DATE
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    firstname VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS todo
 (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title TEXT NOT NULL,
-  description TEXT NOT NULL,
-  created_at DATE,
-  due_time DATE NOT NULL,
-  status ENUM(not started, todo, in progress, done),
-  user_id INT
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  due_time DATETIME NOT NULL,
+  status ENUM('not started','todo','in progress','done'),
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
