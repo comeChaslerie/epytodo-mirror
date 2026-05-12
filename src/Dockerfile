@@ -1,6 +1,7 @@
 FROM node
 WORKDIR /app
 EXPOSE 3000
-RUN npm install express dotenv mysql2
+COPY package*.json .
+RUN npm install
 COPY . /app/
-CMD ["npx", "tsx index.ts"]
+CMD ["npx","tsx","src/index.ts"]

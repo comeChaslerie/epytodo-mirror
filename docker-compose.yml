@@ -5,9 +5,11 @@ services:
       - db
     restart: always
     build:
-      context: ./web_server
+      context: ./src
       dockerfile: Dockerfile
     image: web_server
+    ports:
+      - 3000:3000
     networks:
       - db
     environment:
@@ -22,10 +24,11 @@ services:
     restart: always
     image: mysql
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - /var/lib/mysql
       - ./epytodo.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     networks:
       - db
 
