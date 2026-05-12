@@ -14,7 +14,9 @@
   "author": "",
   "type": "commonjs",
   "main": "index.js",
+
   "scripts": {
+    "start": "tsx src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

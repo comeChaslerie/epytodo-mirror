@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS todo
   description VARCHAR(255) NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   due_time DATETIME NOT NULL,
-  status ENUM('not started','todo','in progress','done'),
+  status ENUM('not started','todo','in progress','done') DEFAULT 'not started',
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
