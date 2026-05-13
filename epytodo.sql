@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS user
     password VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS todo
@@ -17,5 +17,5 @@ CREATE TABLE IF NOT EXISTS todo
   due_time DATETIME NOT NULL,
   status ENUM('not started','todo','in progress','done') NOT NULL DEFAULT 'not started',
   user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
