@@ -22,5 +22,5 @@ export async function createUser(email: string, password: string, name: string, 
     "INSERT INTO user (email, password, name, firstname) VALUES (?, ?, ?, ?)",
     [email, password, name, firstname]
   );
-  return (result as any);
+  return (result as User[])[0];
 }
