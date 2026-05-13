@@ -24,7 +24,7 @@ services:
     restart: always
     image: mysql:9.7
     ports:
-      - "3306:3306"
+      - "3030:3000"
     volumes:
       - db-data:/var/lib/mysql
       - ./epytodo.sql:/docker-entrypoint-initdb.d/schema.sql
