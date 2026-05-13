@@ -5,7 +5,7 @@ services:
       - db
     restart: always
     build:
-      context: ./src
+      context: .
       dockerfile: Dockerfile
     image: web_server
     ports:
@@ -22,9 +22,9 @@ services:
 
   db:
     restart: always
-    image: mysql
+    image: mysql:9.7
     volumes:
-      - /var/lib/mysql
+      - db-data:/var/lib/mysql
       - ./epytodo.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
