@@ -1,7 +1,8 @@
-import Router from "express";
-const router = Router();
+import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { createUser, findUserByEmail } from "../user/user.query";
+
+const router = Router();
 
 router.post("/register", async (req, res) => {
   try {
@@ -13,8 +14,6 @@ router.post("/register", async (req, res) => {
       return res.status(404).json({ msg: "User already exist\n" });
     const hashed = await bcrypt.hash(password, 10);
     const id = await createUser(email, hashed, name, firstname);
-    if (!id)
-      return res.status(404).json({ msg: "User creation failed\n" });
   } catch (err) {
     return res.status(500).json({ msg: "Internal server error\n" });
   }
