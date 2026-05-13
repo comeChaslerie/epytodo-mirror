@@ -40,10 +40,11 @@ router.post("/login", async (req, res) => {
     if (!user)
       return res.status(404).json({ msg: "Bad parameter" });
 
-    if (!bcrypt.compare(password, user.password))
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid)
       return res.status(404).json({ msg: "Bad parameter" });
 
-    const token = jwt.sign( user.id, process.env.SECRET!, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id }, process.env.SECRET!, { expiresIn: "1h" });
     return res.json({ token });
   } catch (err) {
     return res.status(500).json({ msg: "Internal server error" });

@@ -1,4 +1,5 @@
 import pool from "../../config/db";
+import { ResultSetHeader } from "mysql2";
 
 export interface User {
   id: string;
@@ -22,5 +23,5 @@ export async function createUser(email: string, password: string, name: string, 
     "INSERT INTO user (email, password, name, firstname) VALUES (?, ?, ?, ?)",
     [email, password, name, firstname]
   );
-  return (result as User[])[0];
+  return (result as ResultSetHeader).insertId;
 }

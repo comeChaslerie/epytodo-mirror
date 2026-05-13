@@ -1,5 +1,5 @@
-CREATE DATABASE IF NO EXISTS 'epytodo':
-USE 'epytodo':
+CREATE DATABASE IF NOT EXISTS epytodo;
+USE epytodo;
 
 CREATE TABLE IF NOT EXISTS user
 (
