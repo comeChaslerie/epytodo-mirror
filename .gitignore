@@ -12,7 +12,7 @@ node_modules
 !*/routes/user/*.ts
 !Dockerfile
 !*.ts
-!.yml
-!.sql
+!*.yml
+!*.sql
 !package.json
 !tsconfig.json

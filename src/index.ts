@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 import authRouter from "./routes/auth/auth";
 import userRouter from "./routes/user/user";
-import todosRouter from "./routes/todos/todo";
+import todosRouter from "./routes/todos/todos";
 
 
 dotenv.config();
