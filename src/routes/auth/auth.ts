@@ -1,7 +1,7 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { createUser, findUserByEmail } from "../user/user.query";
+import { createUser, findUserByEmail, User } from "../user/user.query";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -35,7 +35,7 @@ router.post("/login", async (req, res) => {
     if (!email || !password)
       return res.status(404).json({ msg: "Bad parameter" });
 
-    const user = await findUserByEmail(email);
+    const user: User = await findUserByEmail(email);
     if (!user)
       return res.status(404).json({ msg: "Bad parameter" });
 

@@ -1,11 +1,20 @@
 import pool from "../../config/db";
 
+export interface User {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  firstname: string;
+  created_at: Date;
+}
+
 export async function findUserByEmail(email: string) {
   const [rows] = await pool.execute(
     "SELECT * FROM user WHERE email = ?",
     [email]
   );
-  return (rows as any[])[0];
+  return (rows as User[])[0];
 }
 
 export async function createUser(email: string, password: string, name: string, firstname: string) {
@@ -13,5 +22,5 @@ export async function createUser(email: string, password: string, name: string, 
     "INSERT INTO user (email, password, name, firstname) VALUES (?, ?, ?, ?)",
     [email, password, name, firstname]
   );
-  return (result as any).insertId;
+  return (result as any);
 }
