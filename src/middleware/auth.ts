@@ -20,7 +20,6 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     } catch (err) {
         return res.status(404).json({ msg: "Token is not valid" });
     }
-
 }
 
 export default authMiddleware;
