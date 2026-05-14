@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth/auth";
 import userRouter from "./routes/user/user";
 import todosRouter from "./routes/todos/todos";
+import notFoundMiddleware from "./middleware/notFound";
+
 
 
 dotenv.config();
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(userRouter);
 app.use(todosRouter);
+app.use(notFoundMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
