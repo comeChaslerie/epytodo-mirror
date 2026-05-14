@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllTodosForUser } from "./todos.query";
+import { getAllTodosForUser, createTodo, getTodoById } from "./todos.query";
 
 const router = Router();
 
@@ -8,6 +8,34 @@ router.get("/", async (req, res) => {
         const userId = (req as any).user.id;
         const todos = await getAllTodosForUser(userId);
         return res.json(todos);
+    } catch (err) {
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+});
+
+router.post("/", async (req, res) => {
+    try {
+        const userId = (req as any).user.id;
+        const { title, description, due_time, status } = req.body;
+        const actualStatus = status || "not started";
+
+        if (!title || !description || !due_time)
+            return res.status(400).json({ msg: "Bad parameter" });
+
+        const idTodo = await createTodo(title, description, due_time, actualStatus, userId);
+        return res.status(201).json({ msg: "Todo created" })
+    } catch (err) {
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+});
+
+router.get("/:id", async (req, res) => {
+    try {
+        const todo_id = Number(req.params.id);
+        const todo = await getTodoById(todo_id);
+        if (!todo)
+            return res.status(404).json({ msg: "Not found" });
+        return res.json(todo);
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error" });
     }
