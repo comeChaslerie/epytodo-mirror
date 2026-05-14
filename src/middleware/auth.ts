@@ -5,7 +5,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
 
     if (!authHeader)
-        return res.status(404).json({ msg: "No token, authorization denied" });
+        return res.status(401).json({ msg: "No token, authorization denied" });
 
     let token: string;
     if (authHeader.startsWith("Bearer "))
@@ -18,7 +18,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
         (req as any).user = decoded;
         next();
     } catch (err) {
-        return res.status(404).json({ msg: "Token is not valid" });
+        return res.status(401).json({ msg: "Token is not valid" });
     }
 }
 
