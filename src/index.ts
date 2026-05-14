@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(authRouter);
 app.use(userRouter);
-app.use(authMiddleware, todosRouter);
+app.use("/todos", authMiddleware, todosRouter);
 app.use(notFoundMiddleware);
 
 const PORT = process.env.PORT || 3000;

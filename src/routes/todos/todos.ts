@@ -3,7 +3,7 @@ import { getAllTodosForUser } from "./todos.query";
 
 const router = Router();
 
-router.get("/todos", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const userId = (req as any).user.id;
         const todos = await getAllTodosForUser(userId);
