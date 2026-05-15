@@ -6,14 +6,13 @@ export interface Todo {
   title: string;
   description: string;
   created_at: Date;
-  due_time: Date;
+  due_time: string;
   status: string;
   user_id: number;
 }
 
-export async function getAllTodosForUser(userId: number) {
-    const [rows] = await pool.execute(
-        "SELECT * FROM todo WHERE user_id = ?", [userId]);
+export async function getAllTodos() {
+    const [rows] = await pool.execute("SELECT * FROM todo");
     return (rows as Todo[]);
 }
 

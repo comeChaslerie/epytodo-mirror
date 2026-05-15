@@ -1,12 +1,11 @@
 import { Router } from "express";
-import { getAllTodosForUser, createTodo, getTodoById, deleteTodoById, updateTodo } from "./todos.query";
+import { getAllTodos, createTodo, getTodoById, deleteTodoById, updateTodo } from "./todos.query";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
     try {
-        const userId = (req as any).user.id;
-        const todos = await getAllTodosForUser(userId);
+        const todos = await getAllTodos();
         return res.json(todos);
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error" });
@@ -23,7 +22,8 @@ router.post("/", async (req, res) => {
             return res.status(400).json({ msg: "Bad parameter" });
 
         const idTodo = await createTodo(title, description, due_time, actualStatus, userId);
-        return res.status(201).json({ msg: "Todo created" })
+        const created = await getTodoById(idTodo);
+        return res.status(201).json(created);
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error" });
     }
@@ -46,15 +46,19 @@ router.put("/:id", async (req, res) => {
         const id = Number(req.params.id);
         const userId = (req as any).user.id;
         const { title, description, due_time, status } = req.body;
-        const actualStatus = status || "not started";
 
         if (!title || !description || !due_time)
             return res.status(400).json({ msg: "Bad parameter" });
 
-        const affectedRows = await updateTodo(id, title, description, due_time, actualStatus, userId);
-        if (affectedRows === 0)
+        const existing = await getTodoById(id);
+        if (!existing)
             return res.status(404).json({ msg: "Not found" });
-        return res.json({ msg: "Todo updated" });
+
+        const finalStatus = status || existing.status;
+
+        await updateTodo(id, title, description, due_time, finalStatus, userId);
+        const updated = await getTodoById(id);
+        return res.json(updated);
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error" });
     }
