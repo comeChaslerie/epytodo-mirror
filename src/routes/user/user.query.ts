@@ -33,3 +33,19 @@ export async function createUser(email: string, password: string, name: string, 
   );
   return (result as ResultSetHeader).insertId;
 }
+
+export async function updateUser(id: number, email: string, password: string, name: string, firstname: string) {
+  const [result] = await pool.execute(
+    "UPDATE user SET email = ?, password = ?, name = ?, firstname = ? WHERE id = ?",
+    [email, password, name, firstname, id]
+  );
+  return (result as ResultSetHeader).affectedRows;
+}
+
+export async function deleteUserById(id: number) {
+  const [result] = await pool.execute(
+    "DELETE FROM user WHERE id = ?",
+    [id]
+  );
+  return (result as ResultSetHeader).affectedRows;
+}
