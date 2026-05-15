@@ -28,6 +28,32 @@ router.get("/user/todos", async (req, res) => {
   }
 });
 
+router.get("/users/:id", async (req, res, next) => {
+  if (!/^\d+$/.test(req.params.id))
+    return next();
+  try {
+    const user = await findUserById(Number(req.params.id));
+    if (!user)
+      return res.status(404).json({ msg: "Not found" });
+
+    return res.json(user);
+  } catch (err) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
+router.get("/users/:email", async (req, res) => {
+  try {
+    const user = await findUserByEmail(req.params.email);
+    if (!user)
+      return res.status(404).json({ msg: "Not found" });
+
+    return res.json(user);
+  } catch (err) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
 router.put("/users/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
