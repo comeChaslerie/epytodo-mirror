@@ -32,3 +32,20 @@ export async function getTodoById(id: number) {
     );
     return (rows as Todo[])[0];
 }
+
+export async function deleteTodoById(id: number) {
+    const [result] = await pool.execute(
+        "DELETE FROM todo WHERE id = ?",
+        [id]
+    );
+    return (result as ResultSetHeader).affectedRows;
+}
+
+export async function updateTodo(id: number, title: string, description: string, due_time: string, status: string, user_id: number) {
+    const [result] = await pool.execute(
+        "UPDATE todo SET title = ?, description = ?, due_time = ?, status = ?, user_id = ? WHERE id = ?",
+        [title, description, due_time, status, user_id, id]
+    );
+    return (result as ResultSetHeader).affectedRows;
+}
+
