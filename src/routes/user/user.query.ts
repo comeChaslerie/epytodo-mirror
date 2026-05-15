@@ -18,6 +18,14 @@ export async function findUserByEmail(email: string) {
   return (rows as User[])[0];
 }
 
+export async function findUserById(id: number) {
+  const [rows] = await pool.execute(
+    "SELECT * FROM user WHERE id = ?",
+    [id]
+  );
+  return (rows as User[])[0];
+}
+
 export async function createUser(email: string, password: string, name: string, firstname: string) {
   const [result] = await pool.execute(
     "INSERT INTO user (email, password, name, firstname) VALUES (?, ?, ?, ?)",
