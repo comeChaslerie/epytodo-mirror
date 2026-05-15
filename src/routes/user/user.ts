@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { findUserById } from "./user.query";
+import { getAllTodosForUser } from "../todos/todos.query";
 
 const router = Router();
 
@@ -11,6 +12,16 @@ router.get("/user", async (req, res) => {
       return res.status(404).json({ msg: "Not found" });
 
     return res.json(user);
+  } catch (err) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
+router.get("/user/todos", async (req, res) => {
+  try {
+    const userId = (req as any).user.id;
+    const todos = await getAllTodosForUser(userId);
+    return res.json(todos);
   } catch (err) {
     return res.status(500).json({ msg: "Internal server error" });
   }

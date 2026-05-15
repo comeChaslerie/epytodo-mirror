@@ -16,6 +16,14 @@ export async function getAllTodos() {
     return (rows as Todo[]);
 }
 
+export async function getAllTodosForUser(userId: number) {
+    const [rows] = await pool.execute(
+        "SELECT * FROM todo WHERE user_id = ?",
+        [userId]
+    );
+    return (rows as Todo[]);
+}
+
 export async function createTodo(title: string, description: string, due_time: string, status: string, user_id: number) {
     const [result] = await pool.execute(
         "INSERT INTO todo (title, description, due_time, status, user_id) VALUES (?, ?, ?, ?, ?)",
