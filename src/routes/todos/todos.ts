@@ -70,7 +70,7 @@ router.delete("/:id", async (req, res) => {
         const affectedRows = await deleteTodoById(id);
         if (affectedRows === 0)
             return res.status(404).json({ msg: "Not found" });
-        return res.json({ msg: "Todo deleted" });
+        return res.json({ msg: `Successfully deleted record number: ${id}` });
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error" });
     }
