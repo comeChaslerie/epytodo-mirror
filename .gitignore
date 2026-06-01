@@ -5,6 +5,7 @@
 node_modules
 
 !.gitignore
+!README.md
 !*/config/*.ts
 !*/middleware/*.ts
 !*/routes/auth/*.ts
