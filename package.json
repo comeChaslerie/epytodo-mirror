@@ -1,14 +1,14 @@
 {
-  "name": "epytodo-mirror",
+  "name": "epytodo",
   "version": "1.0.0",
   "description": "Epytodo in TS",
-  "homepage": "https://github.com/comeChaslerie/epytodo-mirror#readme",
+  "homepage": "https://github.com/comeChaslerie/epytodo#readme",
   "bugs": {
-    "url": "https://github.com/comeChaslerie/epytodo-mirror/issues"
+    "url": "https://github.com/comeChaslerie/epytodo/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/comeChaslerie/epytodo_mirror.git"
+    "url": "git+https://github.com/comeChaslerie/epytodo.git"
   },
   "license": "ISC",
   "author": "Stanislas, Come",
